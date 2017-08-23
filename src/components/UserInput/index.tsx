@@ -8,24 +8,20 @@ import { RouteComponentProps } from "react-router";
 export namespace UserInput {
     export interface Props {
         currentUser?: UserData;
-        currentUserActions: typeof UserActions;
-        usersArrayActions: typeof UsersActions;
+        currentUserActions?: typeof UserActions;
+        usersArrayActions?: typeof UsersActions;
     }
 
     export interface State {
-        currentUser: UserData;
+        currentUser?: UserData;
     }
 }
 
 export class UserInput extends React.Component<UserInput.Props, UserInput.State> {
 
-    constructor(props?: UserInput.Props, context?: any) {
+    constructor(props?: UserInput.Props, context?: UserInput.State) {
         super(props, context);
-        this.state = {
-            currentUser: this.props.currentUser || {}
-        };
 
-        console.log(this.props);
         this.handleNameEnter = this.handleNameEnter.bind(this);
         this.handleSurnameEnter = this.handleSurnameEnter.bind(this);
         this.handleAgeEnter = this.handleAgeEnter.bind(this);
@@ -46,7 +42,7 @@ export class UserInput extends React.Component<UserInput.Props, UserInput.State>
     }
 
     handleAgeEnter(e) {
-        const text = e.target.value.trim();
+        const text = e.target.value;
         this.props.currentUserActions.changeCurrentUser({ age: text });
     }
 
@@ -63,6 +59,10 @@ export class UserInput extends React.Component<UserInput.Props, UserInput.State>
     handleGenderChange(e) {
         const text = e.target.value.trim();
         this.props.currentUserActions.changeCurrentUser({ gender: text });
+    }
+
+    hasData(currentUser: UserData) {
+        return currentUser.name || currentUser.surname || currentUser.age;
     }
 
     render() {
@@ -84,12 +84,13 @@ export class UserInput extends React.Component<UserInput.Props, UserInput.State>
                     checked={currentUser.gender === 'Female'}
                     onClick={(e) => this.handleGenderChange(e)} />Female
                 <br />
-                {currentUser.name || currentUser.surname || currentUser.age ?
+
+                {this.hasData(currentUser) &&
                     <label>User:
-                        <label>{!!currentUser.name ? <label>{currentUser.name}</label> : null} </label>
-                        <label>{!!currentUser.surname ? <label>{currentUser.surname}</label> : null} </label>
-                        <label>{!!currentUser.age ? <label>{currentUser.age}</label> : null} </label>
-                    </label> : null}
+                        <label>{!!currentUser.name && <label>{currentUser.name}</label>} </label>
+                        <label>{!!currentUser.surname && <label>{currentUser.surname}</label>} </label>
+                        <label>{!!currentUser.age && <label>{currentUser.age}</label>} </label>
+                    </label>}
 
                 <br />
                 {currentUser.isNew ? <button onClick={this.handleUserAdding}>Add user</button> : null}

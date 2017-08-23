@@ -5,7 +5,7 @@ import { Router, Route, Switch } from 'react-router';
 import { createBrowserHistory } from 'history';
 import { configureStore } from './store';
 import { App } from './containers/App';
-import NewPage from "./containers/NewPage";
+import { NewPage } from "./containers/NewPage";
 
 const store = configureStore();
 const history = createBrowserHistory();
@@ -16,7 +16,7 @@ ReactDOM.render(
       <Switch>
         {/* <Route path="/" component={App}></Route> */}
         {/* <Route path="mypage" component={NewPage} /> */}
-        <Route path="/" component={NewPage} ></Route>
+        <Route path="/" component={NewPage} />
       </Switch>
     </Router>
   </Provider>,

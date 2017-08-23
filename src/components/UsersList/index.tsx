@@ -7,13 +7,13 @@ import { bindActionCreators } from 'redux';
 
 export namespace UsersList {
     export interface Props {
-        users: UserData[];
-        usersArrayActions: typeof UsersActions;
-        currentUserActions: typeof UserActions
+        users?: UserData[];
+        usersArrayActions?: typeof UsersActions;
+        currentUserActions?: typeof UserActions
     }
 
     export interface State {
-        users: UserData[];
+        users?: UserData[];
     }
 }
 
@@ -21,9 +21,6 @@ export class UsersList extends React.Component<UsersList.Props, UsersList.State>
 
     constructor(props?: UsersList.Props, context?: any) {
         super(props, context);
-        this.state = {
-            users: this.props.users || [],
-        };
         this.handleRemove = this.handleRemove.bind(this);
         this.handleCurrentUserSet = this.handleCurrentUserSet.bind(this);
     }
