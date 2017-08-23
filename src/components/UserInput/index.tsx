@@ -3,6 +3,7 @@ import * as UserActions from '../../actions/user';
 import * as UsersActions from '../../actions/users';
 import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
+import { RouteComponentProps } from "react-router";
 
 export namespace UserInput {
     export interface Props {
@@ -23,6 +24,8 @@ export class UserInput extends React.Component<UserInput.Props, UserInput.State>
         this.state = {
             currentUser: this.props.currentUser || {}
         };
+
+        console.log(this.props);
         this.handleNameEnter = this.handleNameEnter.bind(this);
         this.handleSurnameEnter = this.handleSurnameEnter.bind(this);
         this.handleAgeEnter = this.handleAgeEnter.bind(this);
