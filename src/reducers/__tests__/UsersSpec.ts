@@ -62,6 +62,12 @@ describe('users array reducer', () => {
             .toEqual([userForEdit])
     });
 
+    it('shouldn`t edit if id wasn`t found', () => {
+        const userForEdit = { id: 1111, name: 'NewOne' };
+        expect(reducer(usersArray, editUser(userForEdit)))
+            .toEqual(usersArray)
+    });
+
     it('should remove user (init check)', () => {
         const id = 0;
         expect(reducer(undefined, deleteUser({ id }))).toEqual([])
